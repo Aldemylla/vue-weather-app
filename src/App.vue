@@ -8,7 +8,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 *,
 *::before,
 *::after {
@@ -25,5 +25,14 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+input[type='search'] {
+  &::-webkit-search-decoration,
+  &::-webkit-search-cancel-button,
+  &::-webkit-search-results-button,
+  &::-webkit-search-results-decoration {
+    appearance: none;
+  }
 }
 </style>
