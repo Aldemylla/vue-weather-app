@@ -1,24 +1,25 @@
-# hello-world
+<div align="center">
 
-## Project setup
-```
-npm install
-```
+# Vue Weather App
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+A simple weather forecast app
 
-### Compiles and minifies for production
-```
-npm run build
-```
+*My first app with Vue*
 
-### Lints and fixes files
-```
-npm run lint
-```
+</div>
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 💻 Demo
+
+> Coming soon
+
+## 🚀 Technologies
+
+This project was developed with:
+
+- [Vue 2](https://v2.vuejs.org/)
+- [Vue Router](https://router.vuejs.org/)
+- [Sass](https://sass-lang.com/)
+
+---
+
+Made by Aldemylla :wave: [Find me on Linkedin!](https://www.linkedin.com/in/aldemylla/)
