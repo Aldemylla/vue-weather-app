@@ -3,11 +3,7 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: [
-    'plugin:vue/essential',
-    '@vue/airbnb',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['plugin:vue/essential', '@vue/airbnb', 'plugin:prettier/recommended'],
   plugins: ['prettier'],
   parserOptions: {
     parser: '@babel/eslint-parser',
@@ -21,13 +17,17 @@ module.exports = {
   },
   overrides: [
     {
-      files: [
-        '**/__tests__/*.{j,t}s?(x)',
-        '**/tests/unit/**/*.spec.{j,t}s?(x)',
-      ],
+      files: ['**/__tests__/*.{j,t}s?(x)', '**/tests/unit/**/*.spec.{j,t}s?(x)'],
       env: {
         jest: true,
       },
     },
   ],
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.jsx', '.vue'],
+      },
+    },
+  },
 };
