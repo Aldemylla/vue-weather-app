@@ -1,15 +1,39 @@
 <template>
   <section class="weather__search">
     <label for="search-control">
-      <input type="search" id="search-control" value="São Paulo" />
+      <input
+        type="search"
+        id="search-control"
+        v-model="newSearch"
+        @keyup.enter="$emit('setSearch', newSearch)"
+      />
     </label>
-    <span class="country">BR</span>
+    <span class="country">{{ country }}</span>
   </section>
 </template>
 
 <script>
 export default {
   name: 'WeatherSearch',
+
+  props: {
+    search: {
+      type: String,
+      required: true,
+    },
+    country: {
+      type: String,
+      required: true,
+    },
+  },
+
+  emits: ['setSearch'],
+
+  data() {
+    return {
+      newSearch: this.search,
+    };
+  },
 };
 </script>
 

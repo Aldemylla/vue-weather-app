@@ -2,11 +2,11 @@
   <section class="weather__info">
     <div class="infos">
       <Icon icon="bx:wind" />
-      <h3>6.58</h3>
+      <h3>{{ wind }}</h3>
     </div>
     <div class="infos">
       <Icon icon="bx:droplet" />
-      <h3>32%</h3>
+      <h3>{{ humidity }}%</h3>
     </div>
   </section>
 </template>
@@ -19,6 +19,17 @@ export default {
 
   components: {
     Icon,
+  },
+
+  props: {
+    wind: {
+      type: String,
+      required: true,
+    },
+    humidity: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>

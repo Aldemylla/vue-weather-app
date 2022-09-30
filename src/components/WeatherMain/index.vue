@@ -2,19 +2,44 @@
   <section class="weather__main">
     <h2 class="feels-like">
       Feels like
-      <strong>30<sup>°</sup></strong>
+      <strong>{{ feelsLike | round }}<sup>°</sup></strong>
     </h2>
     <div class="temp">
-      <img src="https://openweathermap.org/img/wn/01d@2x.png" alt="temp" />
-      <h1>31<sup>°</sup></h1>
+      <img v-if="icon" v-bind:src="`https://openweathermap.org/img/wn/${icon}@2x.png`" alt="temp" />
+      <h1>{{ temp | round }}<sup>°</sup></h1>
     </div>
-    <h2 class="description">Clear sky</h2>
+    <h2 class="description">{{ description }}</h2>
   </section>
 </template>
 
 <script>
 export default {
   name: 'WeatherMain',
+
+  props: {
+    feelsLike: {
+      type: Number,
+      required: true,
+    },
+    icon: {
+      type: String,
+      required: true,
+    },
+    temp: {
+      type: Number,
+      required: true,
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+  },
+
+  filters: {
+    round(value) {
+      return Math.round(value);
+    },
+  },
 };
 </script>
 
