@@ -4,8 +4,9 @@
       <input
         type="search"
         id="search-control"
-        v-model="newSearch"
-        @keyup.enter="$emit('setSearch', newSearch)"
+        :value="search"
+        @input="SET_SEARCH($event.target.value)"
+        @keyup.enter="getWeatherData"
       />
     </label>
     <span class="country">{{ country }}</span>
@@ -13,26 +14,27 @@
 </template>
 
 <script>
+import { mapMutations, mapActions, mapState, mapGetters } from 'vuex';
+
 export default {
   name: 'WeatherSearch',
 
-  props: {
-    search: {
-      type: String,
-      required: true,
-    },
-    country: {
-      type: String,
-      required: true,
-    },
+  methods: {
+    ...mapMutations(['SET_SEARCH']),
+    ...mapActions(['getWeatherData']),
   },
 
-  emits: ['setSearch'],
+  computed: {
+    ...mapState({
+      search: (state) => state.weather.search,
+    }),
+    ...mapGetters({
+      country: 'getWeatherCountry',
+    }),
+  },
 
-  data() {
-    return {
-      newSearch: this.search,
-    };
+  created() {
+    this.getWeatherData();
   },
 };
 </script>

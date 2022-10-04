@@ -1,18 +1,19 @@
 <template>
-  <section class="weather__info">
+  <section class="weather__info" v-if="getWeatherInfo">
     <div class="infos">
       <Icon icon="bx:wind" />
-      <h3>{{ wind }}</h3>
+      <h3>{{ getWeatherInfo.wind }}</h3>
     </div>
     <div class="infos">
       <Icon icon="bx:droplet" />
-      <h3>{{ humidity }}%</h3>
+      <h3>{{ getWeatherInfo.humidity }}%</h3>
     </div>
   </section>
 </template>
 
 <script>
 import { Icon } from '@iconify/vue2';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'WeatherInfo',
@@ -21,15 +22,8 @@ export default {
     Icon,
   },
 
-  props: {
-    wind: {
-      type: String,
-      required: true,
-    },
-    humidity: {
-      type: String,
-      required: true,
-    },
+  computed: {
+    ...mapGetters(['getWeatherInfo']),
   },
 };
 </script>

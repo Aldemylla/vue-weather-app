@@ -1,38 +1,29 @@
 <template>
-  <section class="weather__main">
+  <section class="weather__main" v-if="getWeatherMain">
     <h2 class="feels-like">
       Feels like
-      <strong>{{ feelsLike | round }}<sup>°</sup></strong>
+      <strong>{{ getWeatherMain.feelsLike | round }}<sup>°</sup></strong>
     </h2>
     <div class="temp">
-      <img v-if="icon" v-bind:src="`https://openweathermap.org/img/wn/${icon}@2x.png`" alt="temp" />
-      <h1>{{ temp | round }}<sup>°</sup></h1>
+      <img
+        v-if="getWeatherMain.icon"
+        :src="`https://openweathermap.org/img/wn/${getWeatherMain.icon}@2x.png`"
+        alt="temp"
+      />
+      <h1>{{ getWeatherMain.temp | round }}<sup>°</sup></h1>
     </div>
-    <h2 class="description">{{ description }}</h2>
+    <h2 class="description">{{ getWeatherMain.description }}</h2>
   </section>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'WeatherMain',
 
-  props: {
-    feelsLike: {
-      type: Number,
-      required: true,
-    },
-    icon: {
-      type: String,
-      required: true,
-    },
-    temp: {
-      type: Number,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
+  computed: {
+    ...mapGetters(['getWeatherMain']),
   },
 
   filters: {
