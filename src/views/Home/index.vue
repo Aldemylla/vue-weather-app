@@ -26,6 +26,7 @@ export default {
 .home-card {
   width: 90%;
   max-width: 360px;
+  min-height: 507px;
 
   position: absolute;
   top: 50%;

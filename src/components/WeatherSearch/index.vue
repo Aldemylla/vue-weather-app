@@ -9,7 +9,7 @@
         @keyup.enter="getWeatherData"
       />
     </label>
-    <span class="country">{{ country }}</span>
+    <span class="country" v-if="!error">{{ country }}</span>
   </section>
 </template>
 
@@ -30,6 +30,7 @@ export default {
     }),
     ...mapGetters({
       country: 'getWeatherCountry',
+      error: 'getError',
     }),
   },
 

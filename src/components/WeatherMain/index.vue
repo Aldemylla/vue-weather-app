@@ -1,18 +1,21 @@
 <template>
-  <section class="weather__main" v-if="getWeatherMain">
+  <section class="weather__main" v-if="weatherMain && !error">
     <h2 class="feels-like">
       Feels like
-      <strong>{{ getWeatherMain.feelsLike | round }}<sup>°</sup></strong>
+      <strong>{{ weatherMain.feelsLike | round }}<sup>°</sup></strong>
     </h2>
     <div class="temp">
       <img
-        v-if="getWeatherMain.icon"
-        :src="`https://openweathermap.org/img/wn/${getWeatherMain.icon}@2x.png`"
+        v-if="weatherMain.icon"
+        :src="`https://openweathermap.org/img/wn/${weatherMain.icon}@2x.png`"
         alt="temp"
       />
-      <h1>{{ getWeatherMain.temp | round }}<sup>°</sup></h1>
+      <h1>{{ weatherMain.temp | round }}<sup>°</sup></h1>
     </div>
-    <h2 class="description">{{ getWeatherMain.description }}</h2>
+    <h2 class="description">{{ weatherMain.description }}</h2>
+  </section>
+  <section class="weather__main" v-else-if="error">
+    <p class="error">No results. Try another location.</p>
   </section>
 </template>
 
@@ -23,7 +26,10 @@ export default {
   name: 'WeatherMain',
 
   computed: {
-    ...mapGetters(['getWeatherMain']),
+    ...mapGetters({
+      weatherMain: 'getWeatherMain',
+      error: 'getError',
+    }),
   },
 
   filters: {
@@ -36,6 +42,8 @@ export default {
 
 <style lang="scss" scoped>
 .weather__main {
+  min-height: 278px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -101,6 +109,10 @@ export default {
     font-size: 1.2rem;
     color: $gray;
     text-transform: capitalize;
+  }
+
+  .error {
+    color: $red;
   }
 }
 </style>

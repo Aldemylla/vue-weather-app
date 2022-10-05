@@ -1,12 +1,12 @@
 <template>
-  <section class="weather__info" v-if="getWeatherInfo">
+  <section class="weather__info" v-if="weatherInfo && !error">
     <div class="infos">
       <Icon icon="bx:wind" />
-      <h3>{{ getWeatherInfo.wind }}</h3>
+      <h3>{{ weatherInfo.wind }}</h3>
     </div>
     <div class="infos">
       <Icon icon="bx:droplet" />
-      <h3>{{ getWeatherInfo.humidity }}%</h3>
+      <h3>{{ weatherInfo.humidity }}%</h3>
     </div>
   </section>
 </template>
@@ -23,7 +23,10 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['getWeatherInfo']),
+    ...mapGetters({
+      weatherInfo: 'getWeatherInfo',
+      error: 'getError',
+    }),
   },
 };
 </script>

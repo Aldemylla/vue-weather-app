@@ -3,11 +3,13 @@ import axios from 'axios';
 const mutations = {
   SET_WEATHER_DATA: 'SET_WEATHER_DATA',
   SET_SEARCH: 'SET_SEARCH',
+  SET_ERROR: 'SET_ERROR',
 };
-const { SET_WEATHER_DATA, SET_SEARCH } = mutations;
+const { SET_WEATHER_DATA, SET_SEARCH, SET_ERROR } = mutations;
 const initialState = {
   search: 'São Paulo',
   weatherData: null,
+  isError: false,
 };
 
 export default {
@@ -41,6 +43,10 @@ export default {
       }
       return null;
     },
+
+    getError(state) {
+      return state.isError;
+    },
   },
 
   mutations: {
@@ -51,6 +57,10 @@ export default {
     [SET_SEARCH](state, search) {
       state.search = search;
     },
+
+    [SET_ERROR](state, value) {
+      state.isError = value;
+    },
   },
 
   actions: {
@@ -58,21 +68,27 @@ export default {
       const URI = 'https://api.openweathermap.org/data/2.5/weather';
       const { VUE_APP_OPEN_WEATHER_MAP_ID } = process.env;
 
-      const response = await axios
+      await axios
         .get(`${URI}?q=${state.search}&appid=${VUE_APP_OPEN_WEATHER_MAP_ID}&units=metric`)
-        .then((response) => response.data);
+        .then((response) => {
+          const { data } = response;
 
-      const treatedWeatherData = {
-        temp: response.main.temp,
-        feelsLike: response.main.feels_like,
-        description: response.weather[0].description,
-        icon: response.weather[0].icon,
-        wind: response.wind.speed,
-        humidity: response.main.humidity,
-        country: response.sys.country,
-      };
+          const treatedWeatherData = {
+            temp: data.main.temp,
+            feelsLike: data.main.feels_like,
+            description: data.weather[0].description,
+            icon: data.weather[0].icon,
+            wind: data.wind.speed,
+            humidity: data.main.humidity,
+            country: data.sys.country,
+          };
 
-      commit(SET_WEATHER_DATA, treatedWeatherData);
+          commit(SET_WEATHER_DATA, treatedWeatherData);
+          commit('SET_ERROR', false);
+        })
+        .catch(() => {
+          commit('SET_ERROR', true);
+        });
     },
   },
 };
